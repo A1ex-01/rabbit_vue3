@@ -126,6 +126,7 @@ export default {
       changeIndex,
       confirm,
       addAddrr,
+      getaddr
     };
   },
   components: {

@@ -5,7 +5,7 @@
         <span style="font-size:26px;margin-right:16px">新鲜好物</span>
         <span style="color:#999">新鲜出炉&nbsp;&nbsp;品质靠谱</span></template
       >
-      <template #right> 查看全部<i class="el-icon-arrow-right"></i> </template>
+      <template #right> 查看全部<i style="margin-left:4px" class="iconfont icon-CZ_007"></i> </template>
     </HotTop>
     <div class="goods">
       <div

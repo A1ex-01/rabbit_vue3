@@ -2,8 +2,8 @@
   <div class="brand">
     <HotTop>
       <template #left>
-        <span>热门品牌</span>
-        <span>国际经典&nbsp;&nbsp;品质保证</span></template
+        <span style="font-size:26px;margin-right:16px">热门品牌</span>
+        <span style="color:#999">国际经典&nbsp;&nbsp;品质保证</span></template
       >
       <template #right>
         <i

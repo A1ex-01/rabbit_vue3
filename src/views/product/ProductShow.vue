@@ -111,28 +111,17 @@
 <script>
 import { ElMessage } from "element-plus";
 import { goAddCart } from "../../api/cart";
-import { ref } from '@vue/reactivity';
-import useStore from 'element-plus/es/components/table/src/store';
+import { ref } from "@vue/reactivity";
+import {useStore} from "vuex";
 export default {
   props: ["goodDetail"],
-  setup(props){
+  setup(props) {
     const imgIndex = ref(0);
     const type_1 = ref(-1);
     const type_2 = ref(-1);
     const count = ref(1);
-    const addCart = () => {
-      if(type_1.value != -1 || type_2.value != -1) {
-        getSkusId();
-        type_1.value = type_2.value = -1;
-      }else{
-        ElMessage({
-          message:"请选择规格",
-          type:"warning"
-        })
-      }
-    }
-      const store = useStore();
-    const  getSkusId = async () =>  {
+    const store = useStore();
+    const getSkusId = async () => {
       var first, second;
       if (type_1.value != -1 && type_2.value != -1) {
         first = props.goodDetail.specs[0].values[type_1.value].name;
@@ -163,10 +152,22 @@ export default {
           message: "添加成功",
           type: "success",
         });
+        console.log("!");
         store.dispatch("home/getProductionCount");
       }
-    }
-    const  imgchecked = (i) => {
+    };
+    const addCart = () => {
+      if (type_1.value != -1 || type_2.value != -1) {
+        getSkusId();
+        type_1.value = type_2.value = -1;
+      } else {
+        ElMessage({
+          message: "请选择规格",
+          type: "warning",
+        });
+      }
+    };
+    const imgchecked = (i) => {
       imgIndex.value = i;
     };
     return {
@@ -176,9 +177,9 @@ export default {
       imgIndex,
       count,
       type_1,
-      type_2
-    }
-  }
+      type_2,
+    };
+  },
 };
 </script>
 <style lang="scss" scoped>

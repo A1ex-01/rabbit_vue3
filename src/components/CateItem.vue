@@ -6,8 +6,8 @@
       <div class="mask">
         <span @click="goAll"
           >查看全部<i
-            class="el-icon-arrow-right"
-            style="color: #ccc; margin-left: 5px"
+            class="iconfont icon-CZ_007"
+            style="color: #ccc; margin-left: 4px"
           ></i
         ></span>
       </div>

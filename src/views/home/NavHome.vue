@@ -1,6 +1,6 @@
 <template>
   <div class="nav">
-    <img src="../../assets/img/logo.png" alt="" />
+    <img src="../../assets/img/logo.png" @click="$router.push('/home')" alt="" />
     <ul class="list">
       <li @click="goHome">首页</li>
       <li
@@ -140,6 +140,7 @@ export default {
 .nav {
   width: 100%;
   height: 132px;
+  min-width: 1240px;
   display: flex;
   padding: 0 140px;
   box-sizing: border-box;
@@ -214,7 +215,7 @@ export default {
     position: relative;
     > span {
       position: absolute;
-      right: -42px;
+      right: -36px;
       top: -4px;
       border-radius: 10px;
       background-color: #e26237;
@@ -246,7 +247,7 @@ export default {
   .shop {
     width: 50px;
     height: 32px;
-    .el-icon-shopping-cart-2 {
+    .iconfont {
       font-size: 26px;
       text-align: center;
     }

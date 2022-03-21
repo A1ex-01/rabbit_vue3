@@ -42,13 +42,13 @@
 <script>
 import { useRouter } from "vue-router";
 export default {
-  setup() {
+  setup(props) {
     const router = useRouter();
     const gopay = () => {
-      router.push({ path: "/pay/" + this.orderList.id });
+      router.push({ path: "/pay/" + props.orderList.id });
     };
     const checkDetail = () => {
-      router.push({ path: "/member/payDetail/" + this.orderList.id });
+      router.push({ path: "/member/payDetail/" + props.orderList.id });
     };
     const filterState = (item) => {
       let stateList = [

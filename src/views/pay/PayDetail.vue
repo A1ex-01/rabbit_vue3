@@ -1,9 +1,9 @@
 <template>
-  <div class="paydetail">
+  <div class="paydetail" v-if="info">
     <div class="top">
       <div class="top_left">
         <i class="iconfont icon-shuyi_jinqian-jiage"></i>
-        <span>待发货</span>
+        <span>{{ mapStatus(info.orderState - 1) }}</span>
       </div>
       <div class="top_mid">
         <span>订单编号：{{ info.id }}</span>
@@ -51,14 +51,14 @@
     </div>
     <div class="pricelist">
       <div>
-        <span>商品件数：{{ goods.length }}：</span>
+        <span>商品件数：{{ goods.length }}</span>
         <span
           >商品总价：<b style="font-size: 20px; color: #cf4444"
             >￥{{ allprice }}</b
           ></span
         >
         <span>商品运费：￥0</span>
-        <span>应付金额：￥{{ allprice }}：</span>
+        <span>应付金额：￥{{ allprice }}</span>
       </div>
     </div>
   </div>
@@ -71,18 +71,18 @@ import { getListById } from "../../api/pay";
 import AddrCard from "../../components/AddrCard.vue";
 import { useRoute } from "vue-router";
 import { ref } from "@vue/reactivity";
-import { computed, onMounted } from "@vue/runtime-core";
+import { computed, onMounted } from "vue";
 export default {
   setup() {
     const route = useRoute();
     const id = ref(route.params.id);
     const info = ref(null);
     const goods = ref([]);
-    const allprice = computed(() =>
-      goods.value.reduce((total, curr) => {
+    const allprice = computed(() => {
+      return goods.value.reduce((total, curr) => {
         return total + curr.price;
-      }, 0)
-    );
+      }, 0);
+    });
     const getDetailInfo = async () => {
       const { data } = await getListById(id.value);
       if (data.msg === "操作成功") {
@@ -125,14 +125,19 @@ export default {
         });
       }
     };
+    const mapStatus = (id) => {
+      const arr = ["待付款", "待发货", "待收货", "待评价", "已完成", "已取消"];
+      return arr[id];
+    };
     onMounted(() => {
       getDetailInfo();
     });
     return {
-      id,
       info,
       goods,
       allprice,
+      getDetailInfo,
+      mapStatus,
     };
   },
   components: {

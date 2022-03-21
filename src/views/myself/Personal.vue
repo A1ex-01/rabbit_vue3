@@ -33,15 +33,14 @@
 </template>
 
 <script>
-import { computed, inject, onMounted } from "@vue/runtime-core";
+import { inject, onMounted } from "@vue/runtime-core";
 import ProductLike from "../product/ProductLike.vue";
 import MyCollect from "./MyCollect.vue";
 import MyHistory from "./MyHistory.vue";
-import useStore from "element-plus/es/components/table/src/store";
+import { getCookie } from '@/utils/cookie';
 export default {
   setup() {
-    const store = useStore();
-    const userInfo = computed(() => store.state.login.info);
+    const userInfo = JSON.parse(getCookie("info"));
     const changeIndex = inject("changeIndex");
     onMounted(() => {
       changeIndex("0_0");

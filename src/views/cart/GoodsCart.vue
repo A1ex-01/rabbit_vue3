@@ -31,7 +31,7 @@
               <span
                 >{{ item.attrsText
                 }}<i
-                  class="el-icon-arrow-down"
+                  class="iconfont icon-down"
                   @click="showSkuId(item.skuId, index)"
                 ></i
               ></span>
@@ -217,7 +217,7 @@ export default {
       var two = null;
       var result = "";
       if (maskContent.value.specs[0].values[0].picture) {
-        one = maskContent.value.specs[0].values[this.type_1];
+        one = maskContent.value.specs[0].values[type_1.value];
         if (maskContent.value.specs[1]) {
           two = maskContent.value.specs[1].values[type_2.value];
         }
@@ -246,19 +246,30 @@ export default {
       });
       const check = idx[0].specs;
       for (let k in check) {
-        if (maskContent.value.specs[k].values[0]) {
-          this[`type_${+k + 1}`] = maskContent.value.specs[k].values
-            .map((it) => check[k].valueName == it.name)
-            .indexOf(true);
+        if (k == 1) {
+          if (maskContent.value.specs[k].values[0]) {
+            type_2.value = maskContent.value.specs[k].values
+              .map((it) => check[k].valueName == it.name)
+              .indexOf(true);
+          } else {
+            type_1.value = maskContent.value.specs[k].values
+              .map((it) => check[k].valueName == it.name)
+              .indexOf(true);
+          }
         } else {
-          this[`type_${1 - k}`] = maskContent.value.specs[k].values
-            .map((it) => check[k].valueName == it.name)
-            .indexOf(true);
+          if (maskContent.value.specs[k].values[0]) {
+            type_1.value = maskContent.value.specs[k].values
+              .map((it) => check[k].valueName == it.name)
+              .indexOf(true);
+          } else {
+            type_2.value = maskContent.value.specs[k].values
+              .map((it) => check[k].valueName == it.name)
+              .indexOf(true);
+          }
         }
       }
     };
     const addNum = async (item) => {
-      const store = useStore();
       await modifyGoods({ id: item.skuId, info: { count: item.count + 1 } });
       store.dispatch("home/getProductionCount");
       getList();
@@ -293,6 +304,7 @@ export default {
       window.addEventListener("click", (e) => {
         if (maskActive.value != -1) {
           if (
+            e.target.parentElement.className != "noImg" &&
             e.target.parentElement.className != "isImg" &&
             e.target.parentElement.className != "goodRight" &&
             e.target.parentElement.className != "maskitem" &&

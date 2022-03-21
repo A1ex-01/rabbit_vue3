@@ -12,7 +12,7 @@
         <span style="font-size:26px;margin-right:16px">人气推荐</span>
         <span style="color:#999">人气爆款&nbsp;&nbsp;不容错过</span>
       </template>
-      <template #right> 查看全部<i class="el-icon-arrow-right"></i> </template>
+      <template #right> 查看全部<i class="iconfont icon-CZ_007" style="margin-left: 4px;"></i> </template>
     </HotTop>
     <div class="goods">
       <div

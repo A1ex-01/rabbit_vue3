@@ -5,7 +5,7 @@
         <template #left>
           <span style="font-size: 26px; color: #000">周榜热销</span></template
         >
-        <template #right> 查看全部<i class="el-icon-arrow-right"></i> </template
+        <template #right> 查看全部<i class="iconfont icon-CZ_007" style="margin-left: 4px;"></i> </template
       ></HotTop>
     </div>
     <GoodCard :cateitem="collectList"></GoodCard>

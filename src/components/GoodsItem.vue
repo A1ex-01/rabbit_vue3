@@ -8,7 +8,7 @@
         }}</span>
       </div>
       <div class="right">
-        <span @click="goAll">查看全部<i class="el-icon-arrow-right"></i></span>
+        <span @click="goAll">查看全部<i class="iconfont icon-CZ_007" style="margin-left: 4px;"></i></span>
       </div>
     </div>
     <div class="gooditem">
