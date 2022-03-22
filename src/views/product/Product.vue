@@ -17,15 +17,16 @@ import ProductLike from "./ProductLike.vue";
 import ProductDetail from "./ProductDetail.vue";
 import { getGoodDetailInfo } from "../../api/good.js";
 import { ElMessage } from "element-plus";
-import { ref } from '@vue/reactivity';
-import { useRoute } from 'vue-router';
-import { onMounted, watch } from '@vue/runtime-core';
-import {useStore} from 'vuex';
+import { ref } from "@vue/reactivity";
+import { useRoute } from "vue-router";
+import { onMounted, watch } from "@vue/runtime-core";
+import { useStore } from "vuex";
 export default {
-  setup(){
+  setup() {
+    // 获取商品详细信息
     const goodDetail = ref(null);
     const route = useRoute();
-    const  getGoodDetail = async () => {
+    const getGoodDetail = async () => {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
       const { data } = await getGoodDetailInfo(route.params);
       if (data.msg === "操作成功") {
@@ -44,18 +45,25 @@ export default {
           type: "error",
         });
       }
-    }
-    watch(route, () => {
-      getGoodDetail();
-    },{immediate:true})
+    };
+
+    // 路由改变更新信息
+    watch(
+      route,
+      () => {
+        getGoodDetail();
+      },
+      { immediate: true }
+    );
+
     const store = useStore();
     onMounted(() => {
       // getGoodDetail();
       store.dispatch("home/getProductionCount");
-    })
+    });
     return {
       goodDetail,
-    }
+    };
   },
   components: {
     Curmb,

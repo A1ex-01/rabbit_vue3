@@ -39,6 +39,7 @@ import { useRouter } from "vue-router";
 import { onMounted } from "@vue/runtime-core";
 export default {
   setup() {
+    // 获取猜你喜欢列表
     const likesList = ref(null);
     const scrollPage = ref(1);
     const getRelevant = async () => {
@@ -56,6 +57,8 @@ export default {
     const goProduct = (id) => {
       router.push({ path: "/product/" + id });
     };
+
+    // 左右按钮逻辑
     const left = () => {
       scrollPage.value =
         scrollPage.value == 1 ? scrollPage.value : scrollPage.value - 1;

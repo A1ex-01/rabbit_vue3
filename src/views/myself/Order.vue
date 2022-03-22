@@ -33,19 +33,8 @@ import PageNav from "./PageNav.vue";
 import { inject, onMounted } from "@vue/runtime-core";
 export default {
   setup() {
+    // tabClick侧边栏点击
     const active = ref(0);
-    const tabshow = ref([
-      "全部订单",
-      "待付款",
-      "待发货",
-      "待收货",
-      "待评价",
-      "已完成",
-      "已取消",
-    ]);
-    const page = ref(1);
-    const count = ref(0);
-    const orderList = ref(null);
     const tabClick = async (index) => {
       active.value = index;
       page.value = 1;
@@ -55,6 +44,22 @@ export default {
       count.value = result.counts;
       orderList.value = result.items;
     };
+
+    // 展现方式替换
+    const tabshow = ref([
+      "全部订单",
+      "待付款",
+      "待发货",
+      "待收货",
+      "待评价",
+      "已完成",
+      "已取消",
+    ]);
+
+    //获取订单列表
+    const orderList = ref(null);
+    const page = ref(1);
+    const count = ref(0);
     const getOrderList = async () => {
       const {
         data: { result },
@@ -67,7 +72,9 @@ export default {
       getOrderList();
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     };
+
     const changeIndex = inject("changeIndex");
+
     onMounted(() => {
       getOrderList();
       changeIndex("1_0");

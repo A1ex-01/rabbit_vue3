@@ -2,44 +2,44 @@ import request from "../utils/request";
 
 function getCategoryList() {
   return request({
-    url: "api/home/category/head",
+    url: "/home/category/head",
     method: "get",
   })
 }
 function getBannerList() {
   return request({
-    url: "api/home/banner",
+    url: "/home/banner",
     method: "get"
   })
 }
 function getFreshThiing() {
   return request({
-    url: "api/home/new/simple",
+    url: "/home/new/simple",
     method: "get"
   })
 }
 function getHotList() {
   return request({
-    url: "api/home/hot",
+    url: "/home/hot",
     method: "get"
   })
 }
 function getBrandList() {
   return request({
-    url: "api/home/brand",
+    url: "/home/brand",
     method: "get",
     limit: "4"
   })
 }
 function getGoodsList() {
   return request({
-    url: "api/home/goods",
+    url: "/home/goods",
     method: "get"
   })
 }
 function getSpecial() {
   return request({
-    url: "api/home/special",
+    url: "/home/special",
     limit: 3,
     method: "get"
   })
@@ -49,7 +49,7 @@ function getSpecial() {
 function getMyHistory(){
   return request({
     method:"get",
-    url:"/api/member/browseHistory",
+    url:"/member/browseHistory",
     data:{
       page:1,
       pageSize:4

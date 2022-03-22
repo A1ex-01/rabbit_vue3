@@ -1,8 +1,7 @@
 <template>
   <div class="top">
     <span v-if="userInfo" @click="goMember"
-      ><i class="iconfont icon-user"></i
-      >{{ userInfo.nickname }}</span
+      ><i class="iconfont icon-user"></i>{{ userInfo.nickname }}</span
     >
     <span v-else @click="goLogin">请先登录</span>
     <span v-if="userInfo" @click="exitAcciunt">退出登录</span>
@@ -19,7 +18,7 @@ import { ElMessage } from "element-plus";
 import { delCookie, getCookie } from "../../utils/cookie";
 import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 export default {
   setup() {
     // 如果有token则获取用户信息，否则弹出错误信息
@@ -37,15 +36,17 @@ export default {
 
     // 链接跳转
     const router = useRouter();
-    const goMember =() => {
+    const goMember = () => {
       router.push("/member");
-    }
-    const goLogin=()=> {
+    };
+    const goLogin = () => {
       router.push("/login");
     };
-    const goOrder=()=> {
+    const goOrder = () => {
       router.push({ path: "/member/order" });
-    }
+    };
+
+    // 退出登录
     const exitAcciunt = () => {
       delCookie("token");
       delCookie("info");
@@ -56,8 +57,8 @@ export default {
       goLogin,
       goOrder,
       exitAcciunt,
-      userInfo
-    }
+      userInfo,
+    };
   },
 };
 </script>

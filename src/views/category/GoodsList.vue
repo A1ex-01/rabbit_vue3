@@ -33,16 +33,14 @@ import { ElMessage } from "element-plus";
 import GoodCard from "../../components/GoodCard.vue";
 import { getGoodList } from "../../api/category.js";
 import { ref } from "@vue/reactivity";
-import { useRoute } from 'vue-router';
-import { onMounted, watch } from '@vue/runtime-core';
+import { useRoute } from "vue-router";
+import { onMounted, watch } from "@vue/runtime-core";
 export default {
   setup() {
+    // 获取商品列表
     const goodList = ref(null);
     const page = ref(1);
-    const flag = ref(false);
-    const full = ref(false);
-    const route = useRoute();
-    const  getGood = async () => {
+    const getGood = async () => {
       const { data } = await getGoodList({
         page: page.value,
         categoryId: route.params.id,
@@ -57,7 +55,12 @@ export default {
         });
       }
     };
-    const  getMoreGood = async () => {
+
+    // 下滑获取更多商品1信息
+    const flag = ref(false);
+    const full = ref(false);
+    const route = useRoute();
+    const getMoreGood = async () => {
       flag.value = true;
       page.value++;
       const { data } = await getGoodList({
@@ -69,6 +72,7 @@ export default {
         if (data.result.items.length != 20) {
           full.value = true;
         }
+        // 节流
         setTimeout(() => {
           goodList.value = goodList.value.concat(data.result.items);
           flag.value = false;
@@ -90,25 +94,31 @@ export default {
         }
       }
     };
-    watch(route,() => {
-      document.body.scrollTop = document.documentElement.scrollTop = 0;
-      page.value = 1;
-      goodList.value = null;
-      getGood();
-      full.value = false;
-    },{immediate:true})
+
+    // 监听路由改变
+    watch(
+      route,
+      () => {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+        page.value = 1;
+        goodList.value = null;
+        getGood();
+        full.value = false;
+      },
+      { immediate: true }
+    );
     onMounted(() => {
-    getGood();
-    setTimeout(() => {
-      window.addEventListener("scroll", scrollEvent);
-    }, 1000);
-    })
+      getGood();
+      setTimeout(() => {
+        window.addEventListener("scroll", scrollEvent);
+      }, 1000);
+    });
     return {
       goodList,
       page,
       flag,
-      full
-    }
+      full,
+    };
   },
   components: {
     GoodCard,

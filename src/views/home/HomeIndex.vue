@@ -27,8 +27,8 @@ import { ElMessage } from "element-plus";
 import { onMounted, ref } from "@vue/runtime-core";
 export default {
   setup() {
+    // 获取商品信息
     const goodList = ref(null);
-    const cateList = ref(null);
     const getGoods = async () => {
       const { data } = await getGoodsList();
       if (data.msg === "操作成功") {
@@ -40,6 +40,9 @@ export default {
         });
       }
     };
+
+    // 获取分类信息
+    const cateList = ref(null);
     const getCateList = async () => {
       const { data } = await getCategoryList();
       if (data.msg === "操作成功") {

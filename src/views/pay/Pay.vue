@@ -34,6 +34,7 @@ import { useRoute, useRouter } from "vue-router";
 import { onMounted } from "@vue/runtime-core";
 export default {
   setup() {
+    // 获取订单价格信息
     const totalMoney = ref(null);
     const url = ref(null);
     const route = useRoute();
@@ -43,6 +44,8 @@ export default {
       totalMoney.value = data.result.totalMoney;
       url.value = `https://apipc-xiaotuxian-front.itheima.net/pay/aliPay?orderId=${route.params.id}&redirect=http%3A%2F%2Ferabbit.itheima.net%2F%23%2Fpay%2Fcallback`;
     };
+
+    // 跳转付款界面
     const pay = () => {
       ElMessage({
         message: "请完成对应支付流程",

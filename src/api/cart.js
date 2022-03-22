@@ -3,21 +3,21 @@ import request from "../utils/request";
 function getCartCount() {
   return request({
     method: "get",
-    url: "/api/member/cart/count"
+    url: "/member/cart/count"
   })
 }
 
 function getCartList() {
   return request({
     method: "get",
-    url: "/api/member/cart"
+    url: "/member/cart"
   })
 }
 // 修改购物车商品
 function goAddCart(data) {
   return request({
     method: "post",
-    url: "/api/member/cart",
+    url: "/member/cart",
     data: data
   })
 }
@@ -25,7 +25,7 @@ function goAddCart(data) {
 function allChooseBtn(data) {
   return request({
     method: "put",
-    url: "/api/member/cart/selected",
+    url: "/member/cart/selected",
     data: data
   })
 }
@@ -33,7 +33,7 @@ function allChooseBtn(data) {
 function modifyGoods(data) {
   return request({
     method: "put",
-    url: "/api/member/cart/" + data.id,
+    url: "/member/cart/" + data.id,
     data: data.info
   })
 }
@@ -41,14 +41,14 @@ function modifyGoods(data) {
 function getTypeBySkuId(id) {
   return request({
     method: "get",
-    url: "/api/goods/sku/" + id,
+    url: "/goods/sku/" + id,
   })
 }
 //删除购物车商品
 function deleteGoodBySkuId(data) {
   return request({
     method: "delete",
-    url: "/api/member/cart",
+    url: "/member/cart",
     data:data
   })
 }
@@ -57,7 +57,7 @@ function deleteGoodBySkuId(data) {
 function getCollectList(data) {
   return request({
     method: "GET",
-    url: "/api/member/collect",
+    url: "/member/collect",
     data:data
   })
 }

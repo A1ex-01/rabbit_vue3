@@ -131,13 +131,110 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 export default {
   setup() {
+    // 获取购物车列表
     const cartList = ref(null);
+    const getList = async () => {
+      const { data } = await getCartList();
+      if (data.msg === "操作成功") {
+        cartList.value = data.result;
+        allchoose.value = isAllChoose();
+      } else {
+        ElMessage({
+          message: "获取购物车列表失败",
+          type: "error",
+        });
+      }
+    };
+
+    // 点击全选按钮
     const allchoose = ref(false);
+    const changeAll = async () => {
+      await allChooseBtn({ selected: !allchoose.value });
+      getList();
+    };
+
+    // 分类列表显示隐藏
     const maskActive = ref(-1);
+
+    // 删除选中商品
+    const deleteCheckedGood = async () => {
+      let list = cartList.value.filter((item) => item.selected);
+      const arr = list.map((item) => item.skuId);
+      await deleteGoodBySkuId({ ids: arr });
+      ElMessage({
+        message: "删除成功",
+        type: "success",
+      });
+      getList();
+    };
+
+    // 确认更改商品属性
+    const confirm = async (item) => {
+      maskActive.value = -1;
+      var one = null;
+      var two = null;
+      var result = "";
+      if (maskContent.value.specs[0].values[0].picture) {
+        one = maskContent.value.specs[0].values[type_1.value];
+        if (maskContent.value.specs[1]) {
+          two = maskContent.value.specs[1].values[type_2.value];
+        }
+      }
+      if (two) {
+        result = maskContent.value.skus.filter(
+          (item) =>
+            item.specs[0].valueName == one.name &&
+            item.specs[1].valueName == two.name
+        );
+      } else {
+        result = maskContent.value.skus.filter(
+          (item) => item.specs[0].valueName == one.name
+        );
+      }
+      // 更改逻辑：先删除后添加
+      await deleteGoodBySkuId({ ids: [item.skuId] });
+      await goAddCart({ skuId: result[0].id, count: item.count });
+      getList();
+    };
+
+    // 获取当前商品的分类信息
     const maskContent = ref(null);
     const type_1 = ref(-1);
     const type_2 = ref(-1);
-    const store = useStore();
+    const showSkuId = async (item, index) => {
+      const { data } = await getTypeBySkuId(item);
+      maskContent.value = data.result;
+      maskActive.value = index;
+      const idx = maskContent.value.skus.filter((item) => {
+        return item.id == cartList.value[index].skuId;
+      });
+      const check = idx[0].specs;
+      for (let k in check) {
+        if (k == 1) {
+          if (maskContent.value.specs[k].values[0]) {
+            type_2.value = maskContent.value.specs[k].values
+              .map((it) => check[k].valueName == it.name)
+              .indexOf(true);
+          } else {
+            type_1.value = maskContent.value.specs[k].values
+              .map((it) => check[k].valueName == it.name)
+              .indexOf(true);
+          }
+        } else {
+          if (maskContent.value.specs[k].values[0]) {
+            type_1.value = maskContent.value.specs[k].values
+              .map((it) => check[k].valueName == it.name)
+              .indexOf(true);
+          } else {
+            type_2.value = maskContent.value.specs[k].values
+              .map((it) => check[k].valueName == it.name)
+              .indexOf(true);
+          }
+        }
+      }
+    };
+
+    // 商品总数、商品总价格和选中总数
     const count = computed(() => {
       let _count = 0;
       if (cartList.value) {
@@ -173,6 +270,8 @@ export default {
       }
       return count;
     });
+
+    // 判断是否全选
     const isAllChoose = () => {
       const count = cartList.value.filter((item) => !item.selected);
       if (count.length || !cartList.value.length) {
@@ -181,18 +280,8 @@ export default {
         return true;
       }
     };
-    const getList = async () => {
-      const { data } = await getCartList();
-      if (data.msg === "操作成功") {
-        cartList.value = data.result;
-        allchoose.value = isAllChoose();
-      } else {
-        ElMessage({
-          message: "获取购物车列表失败",
-          type: "error",
-        });
-      }
-    };
+
+    // 跳转到订单确认页面
     const router = useRouter();
     const goCheckout = () => {
       localStorage.setItem(
@@ -201,79 +290,14 @@ export default {
       );
       router.push({ path: "/checkout" });
     };
-    const deleteCheckedGood = async () => {
-      let list = cartList.value.filter((item) => item.selected);
-      const arr = list.map((item) => item.skuId);
-      await deleteGoodBySkuId({ ids: arr });
-      ElMessage({
-        message: "删除成功",
-        type: "success",
-      });
-      getList();
-    };
-    const confirm = async (item) => {
-      maskActive.value = -1;
-      var one = null;
-      var two = null;
-      var result = "";
-      if (maskContent.value.specs[0].values[0].picture) {
-        one = maskContent.value.specs[0].values[type_1.value];
-        if (maskContent.value.specs[1]) {
-          two = maskContent.value.specs[1].values[type_2.value];
-        }
-      }
-      if (two) {
-        result = maskContent.value.skus.filter(
-          (item) =>
-            item.specs[0].valueName == one.name &&
-            item.specs[1].valueName == two.name
-        );
-      } else {
-        result = maskContent.value.skus.filter(
-          (item) => item.specs[0].valueName == one.name
-        );
-      }
-      await deleteGoodBySkuId({ ids: [item.skuId] });
-      await goAddCart({ skuId: result[0].id, count: item.count });
-      getList();
-    };
-    const showSkuId = async (item, index) => {
-      const { data } = await getTypeBySkuId(item);
-      maskContent.value = data.result;
-      maskActive.value = index;
-      const idx = maskContent.value.skus.filter((item) => {
-        return item.id == cartList.value[index].skuId;
-      });
-      const check = idx[0].specs;
-      for (let k in check) {
-        if (k == 1) {
-          if (maskContent.value.specs[k].values[0]) {
-            type_2.value = maskContent.value.specs[k].values
-              .map((it) => check[k].valueName == it.name)
-              .indexOf(true);
-          } else {
-            type_1.value = maskContent.value.specs[k].values
-              .map((it) => check[k].valueName == it.name)
-              .indexOf(true);
-          }
-        } else {
-          if (maskContent.value.specs[k].values[0]) {
-            type_1.value = maskContent.value.specs[k].values
-              .map((it) => check[k].valueName == it.name)
-              .indexOf(true);
-          } else {
-            type_2.value = maskContent.value.specs[k].values
-              .map((it) => check[k].valueName == it.name)
-              .indexOf(true);
-          }
-        }
-      }
-    };
+
+    //添加、删除、减少商品
     const addNum = async (item) => {
       await modifyGoods({ id: item.skuId, info: { count: item.count + 1 } });
       store.dispatch("home/getProductionCount");
       getList();
     };
+    const store = useStore();
     const deleteGood = async (item) => {
       await deleteGoodBySkuId({ ids: [item.skuId] });
       store.dispatch("home/getProductionCount");
@@ -291,14 +315,14 @@ export default {
       }
       getList();
     };
+
+    // 单选
     const evenChoose = (item) => {
       allChooseBtn({ selected: !item.selected, ids: [item.skuId] });
       getList();
     };
-    const changeAll = async () => {
-      await allChooseBtn({ selected: !allchoose.value });
-      getList();
-    };
+
+    // 点击外部关闭mask
     onMounted(() => {
       getList();
       window.addEventListener("click", (e) => {

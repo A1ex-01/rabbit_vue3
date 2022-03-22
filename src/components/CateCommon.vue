@@ -43,12 +43,15 @@ import { useRouter } from "vue-router";
 import { onMounted } from "@vue/runtime-core";
 export default {
   setup() {
+    // 获取分类列表数据
     const banner = ref(null);
     const active = ref(0);
     const getBanner = async () => {
       const { data } = await getBannerList();
       banner.value = data.result;
     };
+
+    // 点击跳转至商品分类页
     const router = useRouter();
     const gogoods = (i) => {
       let data = JSON.parse(localStorage.getItem("curmb"));
@@ -59,6 +62,8 @@ export default {
       );
       router.push("/category/sub/" + i.id);
     };
+
+    //左右按钮逻辑
     const left = () => {
       active.value = active.value == 0 ? 4 : active.value - 1;
     };

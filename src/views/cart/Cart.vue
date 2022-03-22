@@ -7,27 +7,28 @@
 </template>
 
 <script>
-import Curmb from "../../components/Curmb.vue"
-import GoodsCart from "./GoodsCart.vue"
-import ProductLike from "../product/ProductLike.vue"
-import {useStore} from 'vuex'
-import { onMounted } from '@vue/runtime-core'
+import Curmb from "../../components/Curmb.vue";
+import GoodsCart from "./GoodsCart.vue";
+import ProductLike from "../product/ProductLike.vue";
+import { useStore } from "vuex";
+import { onMounted } from "@vue/runtime-core";
 export default {
-  setup(){
+  setup() {
+    // 更新产品总数
     const store = useStore();
     onMounted(() => {
-    store.dispatch("home/getProductionCount")
-    })
+      store.dispatch("home/getProductionCount");
+    });
   },
-  components:{
+  components: {
     Curmb,
     GoodsCart,
-    ProductLike
-  }
-}
+    ProductLike,
+  },
+};
 </script>
 <style lang="scss" scoped>
-.cart{
+.cart {
   padding: 0 140px;
   padding-bottom: 20px;
   box-sizing: border-box;

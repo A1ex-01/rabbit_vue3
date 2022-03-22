@@ -43,6 +43,7 @@
 import { useRouter } from "vue-router";
 export default {
   setup(props) {
+    // 路由跳转
     const router = useRouter();
     const gopay = () => {
       router.push({ path: "/pay/" + props.orderList.id });
@@ -50,6 +51,8 @@ export default {
     const checkDetail = () => {
       router.push({ path: "/member/payDetail/" + props.orderList.id });
     };
+
+    // 过滤列表
     const filterState = (item) => {
       let stateList = [
         "待付款",

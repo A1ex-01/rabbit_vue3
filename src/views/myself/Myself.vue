@@ -12,14 +12,17 @@
 <script>
 import { onMounted, provide, ref } from "@vue/runtime-core";
 import PersonLeft from "./PersonLeft.vue";
-import {useStore} from "vuex";
+import { useStore } from "vuex";
 export default {
   setup() {
+    // 获取tab栏的changeIndex方法并注入子组件
     const leftDom = ref(null);
     const changeIndex = (i) => {
       leftDom.value.changeIndex(i);
     };
     provide("changeIndex", changeIndex);
+
+    // 挂在后获取用户产品总数
     const store = useStore();
     onMounted(() => {
       store.dispatch("home/getProductionCount");

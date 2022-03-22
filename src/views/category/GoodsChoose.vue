@@ -16,8 +16,8 @@ import { useRoute } from "vue-router";
 import { watch } from "@vue/runtime-core";
 export default {
   setup() {
+    // 过滤列表数据
     const filterList = ref(null);
-    const route = useRoute();
     const getFilterList = async () => {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
       const { data } = await getFilterCategory(route.params);
@@ -30,6 +30,9 @@ export default {
         });
       }
     };
+
+    // 路由更新触发列表更新
+    const route = useRoute();
     watch(
       route,
       () => {

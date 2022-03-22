@@ -28,6 +28,7 @@ import GoodCard from "./GoodCard.vue";
 export default {
   props: ["cateitem"],
   setup(props){
+    // 查看全部
     const router = useRouter();
     const goAll = () => {
       let curmb = JSON.parse(localStorage.getItem("curmb"));

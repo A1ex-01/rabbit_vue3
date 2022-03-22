@@ -21,6 +21,7 @@ import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 export default {
   setup() {
+    // 获取类型2的收藏列表
     const collectList = ref(null);
     const getNeedList = async () => {
       const {

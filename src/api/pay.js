@@ -3,28 +3,28 @@ import request from "../utils/request";
 function getPayAddrList() {
   return request({
     method:"GET",
-    url:"/api/member/address"
+    url:"/member/address"
   })
 }
 //生成订单
 function createOrder() {
   return request({
     method:"GET",
-    url:"/api/member/order/pre"
+    url:"/member/order/pre"
   })
 }
 // 提交订单
 function sendOrder(data) {
   return request({
     method:"post",
-    url:"/api/member/order",
+    url:"/member/order",
     data:data
   })
 }
 function getAlipayUrl(data){
   return request({
     method:"get",
-    url:"/api/pay/aliPay",
+    url:"/pay/aliPay",
     data:data
   })
 }
@@ -32,7 +32,7 @@ function getAlipayUrl(data){
 function getListById(id){
   return request({
     method:"get",
-    url:"/api/member/order/" + id
+    url:"/member/order/" + id
   })
 }
 export {

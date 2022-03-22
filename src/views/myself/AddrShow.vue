@@ -48,21 +48,19 @@ import { ref } from "@vue/reactivity";
 import { inject, onMounted } from "@vue/runtime-core";
 export default {
   setup() {
+    // 获取用户地址数据
     const useraddr = ref(null);
-    const dialogVisible = ref(false);
-    const formData = ref([
-      { value: "", title: "收货人" },
-      { value: "", title: "手机号" },
-      { value: "", title: "地区" },
-      { value: "", title: "地址" },
-      { value: "", title: "邮政编码" },
-      { value: "", title: "地址标签" },
-    ]);
-    const changeIndex = inject("changeIndex");
     const getaddr = async () => {
       const { data } = await createOrder();
       useraddr.value = data.result.userAddresses;
     };
+
+    //
+
+    // 获取父组件注入的方法
+    const changeIndex = inject("changeIndex");
+
+    // 增加地址
     const addAddrr = () => {
       dialogVisible.value = true;
     };
@@ -114,6 +112,18 @@ export default {
         });
       }
     };
+
+    // 控制dialog显示隐藏
+    const dialogVisible = ref(false);
+    const formData = ref([
+      { value: "", title: "收货人" },
+      { value: "", title: "手机号" },
+      { value: "", title: "地区" },
+      { value: "", title: "地址" },
+      { value: "", title: "邮政编码" },
+      { value: "", title: "地址标签" },
+    ]);
+
     onMounted(() => {
       getaddr();
       changeIndex("0_4");
@@ -126,7 +136,7 @@ export default {
       changeIndex,
       confirm,
       addAddrr,
-      getaddr
+      getaddr,
     };
   },
   components: {

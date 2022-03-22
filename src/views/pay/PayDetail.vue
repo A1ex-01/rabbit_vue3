@@ -74,15 +74,11 @@ import { ref } from "@vue/reactivity";
 import { computed, onMounted } from "vue";
 export default {
   setup() {
+    // 获取详细信息
     const route = useRoute();
     const id = ref(route.params.id);
     const info = ref(null);
     const goods = ref([]);
-    const allprice = computed(() => {
-      return goods.value.reduce((total, curr) => {
-        return total + curr.price;
-      }, 0);
-    });
     const getDetailInfo = async () => {
       const { data } = await getListById(id.value);
       if (data.msg === "操作成功") {
@@ -125,10 +121,20 @@ export default {
         });
       }
     };
+
+    // 计算总价格
+    const allprice = computed(() => {
+      return goods.value.reduce((total, curr) => {
+        return total + curr.price;
+      }, 0);
+    });
+
+    // 通过statusId映射内容
     const mapStatus = (id) => {
       const arr = ["待付款", "待发货", "待收货", "待评价", "已完成", "已取消"];
       return arr[id];
     };
+
     onMounted(() => {
       getDetailInfo();
     });

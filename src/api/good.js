@@ -2,14 +2,14 @@ import request from "../utils/request"
 
 function getGoodDetailInfo(data) {
   return request({
-    url: "api/goods",
+    url: "/goods",
     data:data,
     method: "get",
   })
 }
 function getGoodrelevant() {
   return request({
-    url: "api/goods/relevant",
+    url: "/goods/relevant",
     data:{
       limit:16
     },
@@ -18,7 +18,7 @@ function getGoodrelevant() {
 }
 function getHotGood(data) {
   return request({
-    url: "api/goods/hot",
+    url: "/goods/hot",
     data:data,
     method: "get",
   })

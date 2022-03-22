@@ -14,6 +14,7 @@
 import { useRouter } from "vue-router";
 export default {
   setup() {
+    // 返回首页
     const router = useRouter();
     const goHome = () => {
       router.push("/home");

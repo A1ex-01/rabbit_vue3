@@ -1,21 +1,21 @@
 import request from "../utils/request";
 function getCategory(data) {
   return request({
-    url: "api/category",
+    url: "/category",
     data: data,
     method: "get"
   })
 }
 function getFilterCategory(data) {
   return request({
-    url: "api/category/sub/filter",
+    url: "/category/sub/filter",
     data: data,
     method: "get"
   })
 }
 function getGoodList(data) {
   return request({
-    url: "api/category/goods/temporary",
+    url: "/category/goods/temporary",
     data: {...data,pageSize:20},
     method: "post"
   })
@@ -24,7 +24,7 @@ function getGoodList(data) {
 //商品排序
 function GoodSort(data){
   return request({
-    url:"/api/search/all",
+    url:"/search/all",
     method:"post",
     data:data
   })

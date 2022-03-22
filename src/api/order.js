@@ -3,7 +3,7 @@ import request from "../utils/request";
 function getAllOrderList(data) {
   return request({
     method:"GET",
-    url:"/api/member/order",
+    url:"/member/order",
     data:{
       ...data,
       pageSize:10
@@ -14,7 +14,7 @@ function getAllOrderList(data) {
 function addAddr(data){
   return request({
     method:"post",
-    url:"/api/member/address",
+    url:"/member/address",
     data:data
   })
 }
@@ -22,7 +22,7 @@ function addAddr(data){
 function deleteAddr(id){
   return request({
     method:"delete",
-    url:"/api/member/address/" + id
+    url:"/member/address/" + id
   })
 }
 export {

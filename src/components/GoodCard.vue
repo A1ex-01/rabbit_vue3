@@ -10,18 +10,19 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 export default {
   props: ["cateitem"],
-  setup(){
+  setup() {
+    // 点击跳转至商品详情页
     const router = useRouter();
     const goProduct = (id) => {
-      router.push("/product/"+id);
-    }
+      router.push("/product/" + id);
+    };
     return {
-      goProduct
-    }
-  }
+      goProduct,
+    };
+  },
 };
 </script>
 <style lang="scss" scoped>

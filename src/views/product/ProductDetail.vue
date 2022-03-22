@@ -63,6 +63,7 @@ import { onMounted } from "@vue/runtime-core";
 export default {
   props: ["details"],
   setup() {
+    // 获取订单检查页内的选项
     const active = ref(1);
     const hotList = ref(null);
     const hotListByWeek = ref(null);

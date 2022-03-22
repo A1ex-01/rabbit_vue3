@@ -18,6 +18,7 @@ import { ref } from "@vue/reactivity";
 import { useRouter } from "vue-router";
 export default {
   setup() {
+    // 侧边栏静态资源
     const leftNavList = ref([
       {
         title: "我的账户",
@@ -46,7 +47,14 @@ export default {
         children: ["帮助中心", "在线客服"],
       },
     ]);
+
+    // 侧边栏点击事件
     const active = ref("0_0");
+    const changeIndex = (i) => {
+      active.value = i;
+    };
+
+    // 侧边栏点击跳转
     const router = useRouter();
     const itemclick = (index, i) => {
       active.value = `${index}_${i}`;
@@ -60,15 +68,13 @@ export default {
         router.push("/member/order");
       }
     };
-    const changeIndex = (i) => {
-      active.value = i;
-    };
+
     return {
       leftNavList,
       active,
       itemclick,
-      changeIndex
-    }
+      changeIndex,
+    };
   },
 };
 </script>

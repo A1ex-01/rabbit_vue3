@@ -19,9 +19,9 @@
           @confirm="confirmEvent"
           @cancel="cancelEvent"
         >
-        <template #reference>
-          <i class="iconfont icon-shanchu"></i>
-        </template>
+          <template #reference>
+            <i class="iconfont icon-shanchu"></i>
+          </template>
         </el-popconfirm>
       </div>
     </div>
@@ -33,8 +33,11 @@ import { deleteAddr } from "../api/order";
 import { ElMessage } from "element-plus";
 export default {
   setup(props, { emit }) {
+    // 过滤手机号隐藏中间四位
     const filterTelephone = (val) =>
       val.slice(0, 3) + "****" + val.slice(7, 11);
+
+    // 点击确定按钮
     const confirmEvent = () => {
       deleteAddr(props.useraddr.id);
       ElMessage({
@@ -43,6 +46,8 @@ export default {
       });
       emit("deleteAddrAction");
     };
+
+    // 点击取消按钮
     const cancelEvent = () => {
       ElMessage({
         type: "info",
@@ -73,7 +78,7 @@ export default {
     return {
       filterTelephone,
       confirmEvent,
-      cancelEvent
+      cancelEvent,
     };
   },
   props: ["useraddr"],

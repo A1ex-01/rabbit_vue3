@@ -116,6 +116,7 @@ import {useStore} from "vuex";
 export default {
   props: ["goodDetail"],
   setup(props) {
+    // 获取商品分类信息
     const imgIndex = ref(0);
     const type_1 = ref(-1);
     const type_2 = ref(-1);
@@ -156,6 +157,8 @@ export default {
         store.dispatch("home/getProductionCount");
       }
     };
+
+    // 加入购物车
     const addCart = () => {
       if (type_1.value != -1 || type_2.value != -1) {
         getSkusId();
@@ -167,6 +170,8 @@ export default {
         });
       }
     };
+
+    //左侧图片更换
     const imgchecked = (i) => {
       imgIndex.value = i;
     };

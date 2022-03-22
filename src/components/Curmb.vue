@@ -20,6 +20,7 @@ import { useRoute } from "vue-router";
 import { watch } from "@vue/runtime-core";
 export default {
   setup() {
+    //通过本地取得面包屑
     const curmb = ref(null);
     const route = useRoute();
     const getCurmb = () => {
@@ -27,6 +28,8 @@ export default {
         curmb.value = JSON.parse(localStorage.getItem("curmb"));
       }, 1000);
     };
+
+    //路由改变更新面包屑
     watch(
       route,
       () => {
@@ -37,7 +40,7 @@ export default {
       }
     );
     return {
-      curmb
+      curmb,
     };
   },
 };

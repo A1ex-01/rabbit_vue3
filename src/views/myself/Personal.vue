@@ -37,9 +37,10 @@ import { inject, onMounted } from "@vue/runtime-core";
 import ProductLike from "../product/ProductLike.vue";
 import MyCollect from "./MyCollect.vue";
 import MyHistory from "./MyHistory.vue";
-import { getCookie } from '@/utils/cookie';
+import { getCookie } from "@/utils/cookie";
 export default {
   setup() {
+    // 获取用户信息
     const userInfo = JSON.parse(getCookie("info"));
     const changeIndex = inject("changeIndex");
     onMounted(() => {

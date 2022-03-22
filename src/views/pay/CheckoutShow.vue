@@ -118,9 +118,25 @@ import { useRouter } from "vue-router";
 import { onMounted } from "@vue/runtime-core";
 export default {
   setup() {
+    // 过滤手机号中间四位隐藏
     const filterTelephone = (val) =>
       val.slice(0, 3) + "****" + val.slice(val.length - 4, val.length);
+
+    // 获取列表详细信息
     const orderInfo = ref(null);
+    const getOrderInfo = async () => {
+      const { data } = await createOrder();
+      if (data.msg === "操作成功") {
+        orderInfo.value = data.result;
+      } else {
+        ElMessage({
+          message: "生成订单失败",
+          type: "error",
+        });
+      }
+    };
+
+    // 提交订单
     const tabAddrDialog = ref(false);
     const index = ref(0);
     const preIndex = ref(0);
@@ -145,20 +161,6 @@ export default {
     const type_1 = ref(0);
     const type_2 = ref(0);
     const type_3 = ref(1);
-    const getOrderInfo = async () => {
-      const { data } = await createOrder();
-      if (data.msg === "操作成功") {
-        orderInfo.value = data.result;
-      } else {
-        ElMessage({
-          message: "生成订单失败",
-          type: "error",
-        });
-      }
-    };
-    const tabAddr = () => {
-      tabAddrDialog.value = true;
-    };
     const router = useRouter();
     const sendOrderBtn = async () => {
       let obj = {};
@@ -186,6 +188,12 @@ export default {
         });
       }
     };
+
+    // 打开dialog
+    const tabAddr = () => {
+      tabAddrDialog.value = true;
+    };
+
     onMounted(() => {
       getOrderInfo();
     });
