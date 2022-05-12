@@ -14,25 +14,25 @@
   </div>
 </template>
 <script>
-import { ElMessage } from "element-plus";
-import { delCookie, getCookie } from "../../utils/cookie";
-import { ref } from "@vue/reactivity";
-import { onMounted } from "@vue/runtime-core";
+import { delCookie } from "../../utils/cookie";
+import { computed } from "@vue/runtime-core";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 export default {
   setup() {
     // 如果有token则获取用户信息，否则弹出错误信息
-    const userInfo = ref(null);
-    onMounted(() => {
-      if (getCookie("token")) {
-        userInfo.value = JSON.parse(getCookie("info"));
-      } else {
-        ElMessage({
-          message: "获取用户信息失败",
-          type: "success",
-        });
-      }
-    });
+    const store = useStore();
+    const userInfo = computed(() => store.state.login.info);
+    // onMounted(() => {
+    //   if (getCookie("token")) {
+    //     userInfo.value = JSON.parse(getCookie("info"));
+    //   } else {
+    //     ElMessage({
+    //       message: "获取用户信息失败",
+    //       type: "success",
+    //     });
+    //   }
+    // });
 
     // 链接跳转
     const router = useRouter();

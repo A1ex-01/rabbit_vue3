@@ -36,6 +36,7 @@
           <el-form-item>
             <div class="psw">
               <el-input
+                type="password"
                 v-model="input2"
                 placeholder="请输入密码"
                 class="input-with-select"
@@ -52,10 +53,7 @@
         <el-form>
           <el-form-item>
             <div class="acid">
-              <el-input
-                placeholder="请输入手机号"
-                class="input-with-select"
-              >
+              <el-input placeholder="请输入手机号" class="input-with-select">
                 <template #prepend>
                   <el-button class="iconfont icon-shouji" />
                 </template>
@@ -64,10 +62,7 @@
           </el-form-item>
           <el-form-item>
             <div class="psw">
-              <el-input
-                placeholder="请输入验证码"
-                class="input-with-select"
-              >
+              <el-input placeholder="请输入验证码" class="input-with-select">
                 <template #prepend>
                   <el-button class="iconfont icon-anquan" />
                 </template>
@@ -142,40 +137,6 @@ export default {
       login,
     };
   },
-  // data() {
-  //   return {
-  //     active: 0,
-  //     account: true,
-  //     input1: "xiaotuxian001",
-  //     input2: "",
-  //   };
-  // },
-  // methods: {
-  //   ...mapActions("login", ["sendInfoToIndex"]),
-  //   setActive(index) {
-  //     this.active = index;
-  //     if (index == 1) {
-  //       this.$notify({
-  //         title: "Warning",
-  //         message: "该功能只在手机上运行",
-  //         type: "warning",
-  //       });
-  //     }
-  //   },
-  //   setAccount() {
-  //     this.account = !this.account;
-  //   },
-  //   login() {
-  //     // this.sendInfoToIndex({
-  //     //   account: this.input1,
-  //     //   password: this.input2,
-  //     // });
-  //     this.$store.dispatch("login/sendInfoToIndex",{
-  //       account: this.input1,
-  //       password: this.input2,
-  //     })
-  //   },
-  // },
 };
 </script>
 <style lang="scss" scoped>

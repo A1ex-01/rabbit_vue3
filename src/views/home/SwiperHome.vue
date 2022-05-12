@@ -70,6 +70,7 @@ import { ref } from "@vue/reactivity";
 import { getBannerList } from "../../api/home";
 import { useRouter } from "vue-router";
 import { onMounted } from "@vue/runtime-core";
+// import { ElSkeleton } from "element-plus";
 export default {
   props: ["tabList"],
   setup() {
@@ -182,9 +183,10 @@ export default {
       stopPlay,
       startPlay,
       bannerList,
-      showGoods
+      showGoods,
     };
   },
+  components: {},
 };
 </script>
 <style lang="scss" scoped>
@@ -333,6 +335,17 @@ export default {
         opacity: 1;
       }
     }
+  }
+}
+.elskeleton {
+  padding: 0 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 1.5em;
+  .elskeleton-item2 {
+    flex: 1;
   }
 }
 </style>

@@ -67,6 +67,9 @@ export default {
       if (active.value == "1_0") {
         router.push("/member/order");
       }
+      if (active.value == "0_2") {
+        router.push("/member/mystatus");
+      }
     };
 
     return {

@@ -53,7 +53,7 @@ export default {
     const store = useStore();
     onMounted(() => {
       getCateList();
-      store.commit("login/getUserInfo", JSON.stringify(getCookie("info")));
+      store.commit("login/getInfo", JSON.parse(getCookie("info")));
       store.dispatch("home/getProductionCount");
       document.addEventListener("scroll", getScrollY);
     });

@@ -6,7 +6,7 @@
         <span>{{ userInfo.nickname }}</span>
       </div>
       <div class="info_right">
-        <div class="info_right_item">
+        <div class="info_right_item" @click="goMine">
           <i class="iconfont icon-diamond"></i>
           <span>会员中心</span>
         </div>
@@ -38,6 +38,7 @@ import ProductLike from "../product/ProductLike.vue";
 import MyCollect from "./MyCollect.vue";
 import MyHistory from "./MyHistory.vue";
 import { getCookie } from "@/utils/cookie";
+import { useRouter } from "vue-router";
 export default {
   setup() {
     // 获取用户信息
@@ -46,8 +47,14 @@ export default {
     onMounted(() => {
       changeIndex("0_0");
     });
+    // 跳转至个人信息
+    const router = useRouter();
+    const goMine = () => {
+      router.push("/member/mystatus");
+    };
     return {
       userInfo,
+      goMine,
     };
   },
   components: {
