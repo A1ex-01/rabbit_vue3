@@ -1,7 +1,7 @@
 <template>
   <div class="goods">
     <div v-for="item in cateitem" :key="item.id" @click="goProduct(item.id)">
-      <img :src="item.picture" alt="" />
+      <el-image lazy :src="item.picture" alt="" />
       <p>{{ item.name }}</p>
       <p>{{ item.desc }}</p>
       <p>￥{{ item.price }}</p>
@@ -52,7 +52,7 @@ export default {
       box-shadow: 0 3px 8px rgb(0 0 0 / 20%);
       transition: transform 0.5s;
     }
-    img {
+    .el-image {
       width: 160px;
       height: 160px;
     }

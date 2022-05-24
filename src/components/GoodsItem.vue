@@ -3,16 +3,21 @@
     <div class="title">
       <div class="left">{{ goodList.name }}</div>
       <div class="mid">
-        <span v-for="item in goodList.children" :key="item.id" @click="goCate(item)">{{
-          item.name
-        }}</span>
+        <span
+          v-for="item in goodList.children"
+          :key="item.id"
+          @click="goCate(item)"
+          >{{ item.name }}</span
+        >
       </div>
       <div class="right">
-        <span @click="goAll">查看全部<i class="iconfont icon-CZ_007" style="margin-left: 4px;"></i></span>
+        <span @click="goAll"
+          >查看全部<i class="iconfont icon-CZ_007" style="margin-left: 4px"></i
+        ></span>
       </div>
     </div>
     <div class="gooditem">
-      <div class="good_left"  @click="goAll">
+      <div class="good_left" @click="goAll">
         <img :src="goodList.picture" alt="" />
         <div class="mask">
           <span>{{ goodList.name }}馆</span>
@@ -28,7 +33,7 @@
           @mouseleave="handleLeave"
           @click="goProduct(item.id)"
         >
-          <img :src="item.picture" alt="" />
+          <el-image lazy alt="" :src="item.picture" />
           <span>{{ item.name }}</span>
           <span>{{ item.desc }}</span>
           <span>￥{{ item.price }}</span>
@@ -43,14 +48,14 @@
 </template>
 
 <script>
-import { ref } from '@vue/reactivity';
-import { useRouter } from 'vue-router';
+import { ref } from "@vue/reactivity";
+import { useRouter } from "vue-router";
 export default {
   props: ["goodList"],
-  setup(props){
+  setup(props) {
     // 鼠标移入移出事件
     const active = ref(-1);
-    const handleHover =(index) => {
+    const handleHover = (index) => {
       active.value = index;
     };
     const handleLeave = () => {
@@ -59,30 +64,37 @@ export default {
 
     // 页面跳转
     const router = useRouter();
-    const goCate = (item) =>{
-      localStorage.setItem("curmb",JSON.stringify({level1:props.goodList.name,level2:item.name,level3:""}))
-      router.push("/category/sub/"+item.id);
+    const goCate = (item) => {
+      localStorage.setItem(
+        "curmb",
+        JSON.stringify({
+          level1: props.goodList.name,
+          level2: item.name,
+          level3: "",
+        })
+      );
+      router.push("/category/sub/" + item.id);
     };
-    const goAll =() =>{
-      localStorage.setItem("curmb",JSON.stringify({level1:props.goodList.name,level2:"",level3:""}))
-      router.push("/category/"+props.goodList.id);
+    const goAll = () => {
+      localStorage.setItem(
+        "curmb",
+        JSON.stringify({ level1: props.goodList.name, level2: "", level3: "" })
+      );
+      router.push("/category/" + props.goodList.id);
     };
-    const goProduct = (i) =>{
-      router.push("/product/"+i);
-    }
+    const goProduct = (i) => {
+      router.push("/product/" + i);
+    };
     return {
       active,
       handleHover,
       handleLeave,
       goCate,
       goAll,
-      goProduct
-    }
+      goProduct,
+    };
   },
-  methods: {
-    
-
-  },
+  methods: {},
 };
 </script>
 <style lang="scss" scoped>
@@ -96,6 +108,7 @@ export default {
   justify-content: center;
   .gooditem {
     width: 100%;
+    min-width: 1240px;
     display: flex;
     .good_left {
       width: 240px;
@@ -186,7 +199,7 @@ export default {
           height: 86px;
           transition: height 0.5s;
         }
-        img {
+        .el-image {
           width: 160px;
           height: 160px;
         }

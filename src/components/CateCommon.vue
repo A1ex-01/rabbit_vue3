@@ -1,7 +1,8 @@
 <template>
   <div class="cate">
     <div class="swiper">
-      <img
+      <el-image
+        lazy
         :src="item.imgUrl"
         alt=""
         v-for="(item, index) in banner"
@@ -9,10 +10,10 @@
         :class="{ checked: active == index }"
       />
       <span class="swiper_left" @click="left"
-        ><i class="el-icon-arrow-left"></i
+        ><el-icon><ArrowLeftBold /></el-icon
       ></span>
       <span class="swiper_right" @click="right"
-        ><i class="el-icon-arrow-right"></i
+        ><el-icon><ArrowRightBold /></el-icon
       ></span>
     </div>
     <div class="allcate">
@@ -41,6 +42,7 @@ import { getBannerList } from "../api/home.js";
 import CateItem from "./CateItem.vue";
 import { useRouter } from "vue-router";
 import { onMounted } from "@vue/runtime-core";
+import { ArrowLeftBold, ArrowRightBold } from "@element-plus/icons-vue";
 export default {
   setup() {
     // 获取分类列表数据
@@ -87,6 +89,8 @@ export default {
   props: ["cateList"],
   components: {
     CateItem,
+    ArrowLeftBold,
+    ArrowRightBold,
   },
 };
 </script>
@@ -107,7 +111,7 @@ export default {
       background-color: rgba($color: #fff, $alpha: 0.5);
       font-size: 20px;
       text-align: center;
-      line-height: 40px;
+      line-height: 45px;
       color: white;
       top: 240px;
     }
@@ -117,7 +121,7 @@ export default {
     .swiper_right {
       right: 20px;
     }
-    img {
+    .el-image {
       width: 100%;
       height: 100%;
       position: absolute;

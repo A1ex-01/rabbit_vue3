@@ -1,9 +1,9 @@
 <template>
-  <div class="brand">
+  <div class="brand" style="min-width: 1240px">
     <HotTop>
       <template #left>
-        <span style="font-size:26px;margin-right:16px">热门品牌</span>
-        <span style="color:#999">国际经典&nbsp;&nbsp;品质保证</span></template
+        <span style="font-size: 26px; margin-right: 16px">热门品牌</span>
+        <span style="color: #999">国际经典&nbsp;&nbsp;品质保证</span></template
       >
       <template #right>
         <i
@@ -23,7 +23,7 @@
         :class="{ move: index == 0 && active == 1 }"
         @click="goBrand"
       >
-        <img :src="item.picture" alt="" />
+        <el-image lazy :src="item.picture" alt="" />
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@ import HotTop from "../../components/HotTop.vue";
 import { getBrandList } from "../../api/home.js";
 import { ElMessage, ElNotification } from "element-plus";
 import { ref } from "@vue/reactivity";
-import { onMounted } from '@vue/runtime-core';
+import { onMounted } from "@vue/runtime-core";
 export default {
   setup() {
     // 获取品牌列表
@@ -80,7 +80,7 @@ export default {
       leftBtn,
       rightBtn,
       goBrand,
-      active
+      active,
     };
   },
   components: {
@@ -97,6 +97,7 @@ export default {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    min-width: 1240px;
     overflow: hidden;
     > div {
       flex: 1;
@@ -104,7 +105,7 @@ export default {
       &:nth-child(1) {
         transition: all 0.8s;
       }
-      > img {
+      > .el-image {
         width: 240px;
         height: 305px;
       }

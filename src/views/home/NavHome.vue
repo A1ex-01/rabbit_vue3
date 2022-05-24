@@ -1,6 +1,10 @@
 <template>
   <div class="nav">
-    <img src="../../assets/img/logo.png" @click="$router.push('/home')" alt="" />
+    <img
+      src="../../assets/img/logo.png"
+      @click="$router.push('/home')"
+      alt=""
+    />
     <ul class="list">
       <li @click="goHome">首页</li>
       <li
@@ -16,12 +20,12 @@
     <div class="search">
       <input type="text" placeholder="搜一搜" />
       <div class="mask">
-        <i class="iconfont icon-search" style="font-size:20px"></i>
+        <i class="iconfont icon-search" style="font-size: 20px"></i>
       </div>
       <span>{{ count }}</span>
     </div>
     <div class="shop" @click="goCart">
-      <i class="iconfont icon-gouwuche" style="font-size:20px"></i>
+      <i class="iconfont icon-gouwuche" style="font-size: 20px"></i>
     </div>
     <div
       :class="{ slider: true, checked: active == index }"

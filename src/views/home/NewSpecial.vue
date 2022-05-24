@@ -1,10 +1,12 @@
 <template>
-  <div class="special">
+  <div class="special" style="min-width: 1240px">
     <HotTop>
       <template #left>
         <span style="font-size: 32px; color: #333">最新专题</span></template
       >
-      <template #right> 查看全部<i class="iconfont icon-CZ_007" style="margin-left: 4px;"></i> </template>
+      <template #right>
+        查看全部<i class="iconfont icon-CZ_007" style="margin-left: 4px"></i>
+      </template>
     </HotTop>
     <div class="main">
       <div

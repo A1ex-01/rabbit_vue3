@@ -1,18 +1,13 @@
 <template>
-  <div class="hot">
-    <!-- <div class="top">
-      <div class="left">
-        <span>人气推荐</span>
-        <span>人气爆款&nbsp;&nbsp;不容错过</span>
-      </div>
-      <div class="right">查看全部<i class="el-icon-arrow-right"></i></div>
-    </div> -->
+  <div class="hot" style="min-width: 1240px">
     <HotTop>
       <template #left>
-        <span style="font-size:26px;margin-right:16px">人气推荐</span>
-        <span style="color:#999">人气爆款&nbsp;&nbsp;不容错过</span>
+        <span style="font-size: 26px; margin-right: 16px">人气推荐</span>
+        <span style="color: #999">人气爆款&nbsp;&nbsp;不容错过</span>
       </template>
-      <template #right> 查看全部<i class="iconfont icon-CZ_007" style="margin-left: 4px;"></i> </template>
+      <template #right>
+        查看全部<i class="iconfont icon-CZ_007" style="margin-left: 4px"></i>
+      </template>
     </HotTop>
     <div class="goods">
       <div
@@ -21,7 +16,7 @@
         :key="item.id"
         @click="warning"
       >
-        <img :src="item.picture" alt="" />
+        <el-image lazy :src="item.picture" alt="" />
         <p>{{ item.title }}</p>
         <p>{{ item.alt }}</p>
       </div>
@@ -33,8 +28,8 @@
 import { ElMessage, ElNotification } from "element-plus";
 import { getHotList } from "@/api/home.js";
 import HotTop from "../../components/HotTop.vue";
-import { ref } from '@vue/reactivity';
-import { onMounted } from '@vue/runtime-core';
+import { ref } from "@vue/reactivity";
+import { onMounted } from "@vue/runtime-core";
 export default {
   setup() {
     // 获取推荐列表
@@ -52,7 +47,7 @@ export default {
     };
     onMounted(() => {
       getHot();
-    })
+    });
     // 消息提示
     const warning = () => {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -77,6 +72,7 @@ export default {
   width: 100%;
   padding: 0 140px;
   box-sizing: border-box;
+  min-width: 1240px;
   .goods {
     display: flex;
     justify-content: space-between;
@@ -89,7 +85,7 @@ export default {
       justify-content: space-between;
       background-color: #fff;
       align-items: center;
-      > img {
+      > .el-image {
         width: 306px;
         height: 306px;
       }

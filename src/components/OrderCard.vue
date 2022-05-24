@@ -8,7 +8,7 @@
     <div class="ordercontent">
       <div class="good">
         <div class="good_item" v-for="item in orderList.skus" :key="item.id">
-          <img :src="item.image" alt="" />
+          <el-image lazy :src="item.image" alt="" />
           <div class="good_name">
             <span>{{ item.name }}</span>
             <span>{{ item.attrsText }}</span>
@@ -95,7 +95,7 @@ export default {
         &:last-child {
           border: 0;
         }
-        img {
+        .el-image {
           width: 68px;
           height: 68px;
         }

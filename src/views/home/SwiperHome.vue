@@ -1,7 +1,8 @@
 <template>
-  <div class="swiper">
+  <div class="swiper" style="min-width: 1240px">
     <div class="img">
-      <img
+      <el-image
+        lazy
         :class="{ checked: active == index }"
         :src="item.imgUrl"
         v-for="(item, index) in bannerList"
@@ -11,10 +12,10 @@
         @mouseleave="startPlay"
       />
       <div class="left" @click="left">
-        <i class="el-icon-arrow-left"></i>
+        <el-icon><ArrowLeftBold /></el-icon>
       </div>
       <div class="right" @click="right">
-        <i class="el-icon-arrow-right"></i>
+        <el-icon><ArrowRightBold /></el-icon>
       </div>
       <div class="tabList">
         <div
@@ -52,7 +53,7 @@
             :key="i"
             @click="goproduct(v)"
           >
-            <img :src="v.picture" alt="" />
+            <img :src="v.picture" @error="error" @load="load" alt="" />
             <div class="goodsinfo">
               <span>{{ v.name }}</span>
               <span>{{ v.desc }}</span>
@@ -70,9 +71,13 @@ import { ref } from "@vue/reactivity";
 import { getBannerList } from "../../api/home";
 import { useRouter } from "vue-router";
 import { onMounted } from "@vue/runtime-core";
-// import { ElSkeleton } from "element-plus";
+import { ArrowLeftBold, ArrowRightBold } from "@element-plus/icons-vue";
 export default {
   props: ["tabList"],
+  components: {
+    ArrowLeftBold,
+    ArrowRightBold,
+  },
   setup() {
     // 侧边栏选中状态
     const active = ref(0);
@@ -169,6 +174,13 @@ export default {
         right();
       }, 3000);
     });
+    // 图片加载错误
+    const error = () => {
+      console.log("error");
+    };
+    const load = () => {
+      console.log("load");
+    };
     return {
       active,
       setActive,
@@ -184,9 +196,10 @@ export default {
       startPlay,
       bannerList,
       showGoods,
+      error,
+      load,
     };
   },
-  components: {},
 };
 </script>
 <style lang="scss" scoped>
@@ -315,7 +328,7 @@ export default {
       background-color: rgba($color: #fff, $alpha: 0.3);
       font-size: 16px;
       text-align: center;
-      line-height: 44px;
+      line-height: 47px;
       border-radius: 50%;
       color: white;
     }
@@ -325,7 +338,7 @@ export default {
     .right {
       right: 40px;
     }
-    > img {
+    > .el-image {
       position: absolute;
       left: 0;
       right: 0;
