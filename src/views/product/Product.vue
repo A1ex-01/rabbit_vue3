@@ -77,6 +77,7 @@ export default {
 .product {
   width: 100%;
   padding: 0 140px;
+  min-width: 1520px;
   padding-bottom: 20px;
   box-sizing: border-box;
   background-color: #f5f5f5;

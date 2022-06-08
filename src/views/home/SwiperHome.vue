@@ -1,5 +1,5 @@
 <template>
-  <div class="swiper" style="min-width: 1240px">
+  <div class="swiper" style="min-width: 1520px">
     <div class="img">
       <el-image
         lazy
@@ -342,6 +342,8 @@ export default {
       position: absolute;
       left: 0;
       right: 0;
+      top: 0;
+      bottom: 0;
       opacity: 0;
       transition: opacity 1s;
       &.checked {

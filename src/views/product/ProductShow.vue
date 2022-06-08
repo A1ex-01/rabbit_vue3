@@ -112,7 +112,7 @@
 import { ElMessage } from "element-plus";
 import { goAddCart } from "../../api/cart";
 import { ref } from "@vue/reactivity";
-import {useStore} from "vuex";
+import { useStore } from "vuex";
 export default {
   props: ["goodDetail"],
   setup(props) {
@@ -228,7 +228,7 @@ export default {
       }
     }
     .type {
-      height: 65px;
+      // height: 65px;
       display: flex;
       align-items: center;
       flex-wrap: wrap;
@@ -252,11 +252,12 @@ export default {
         padding-left: 12px;
       }
       > .imgs {
+        margin-right: 12px;
+        margin-bottom: 20px;
         > img {
           width: 48px;
           height: 48px;
           border: 1px solid #e4e4e4;
-          margin-right: 12px;
         }
       }
     }

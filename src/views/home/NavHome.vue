@@ -144,7 +144,7 @@ export default {
 .nav {
   width: 100%;
   height: 132px;
-  min-width: 1240px;
+  min-width: 1520px;
   display: flex;
   padding: 0 140px;
   box-sizing: border-box;

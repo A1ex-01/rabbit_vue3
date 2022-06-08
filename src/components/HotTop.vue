@@ -25,7 +25,7 @@
     }
   }
 }
-.right{
+.right {
   color: #999;
 }
 </style>
