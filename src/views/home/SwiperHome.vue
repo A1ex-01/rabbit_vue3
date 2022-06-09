@@ -1,5 +1,5 @@
 <template>
-  <div class="swiper" style="min-width: 1520px">
+  <div class="swiper" style="min-width: 1518px">
     <div class="img">
       <el-image
         lazy

@@ -53,7 +53,11 @@
         <el-form>
           <el-form-item>
             <div class="acid">
-              <el-input placeholder="请输入手机号" class="input-with-select">
+              <el-input
+                placeholder="请输入手机号"
+                v-model="phoneLoginForm.mobile"
+                class="input-with-select"
+              >
                 <template #prepend>
                   <el-button class="iconfont icon-shouji" />
                 </template>
@@ -62,12 +66,18 @@
           </el-form-item>
           <el-form-item>
             <div class="psw">
-              <el-input placeholder="请输入验证码" class="input-with-select">
+              <el-input
+                placeholder="请输入验证码"
+                v-model="phoneLoginForm.code"
+                class="input-with-select"
+              >
                 <template #prepend>
                   <el-button class="iconfont icon-anquan" />
                 </template>
                 <template #append>
-                  <el-button type="info">获取验证码</el-button>
+                  <el-button type="info" @click="getFormCode">{{
+                    getCodeText
+                  }}</el-button>
                 </template>
               </el-input>
             </div>
@@ -95,6 +105,9 @@
 import { ref } from "@vue/reactivity";
 import { ElNotification } from "element-plus";
 import { useStore } from "vuex";
+import { ElMessage } from "element-plus";
+import { getCode } from "@/api/login";
+import { onBeforeUnmount } from "@vue/runtime-core";
 // import { mapActions } from "vuex";
 export default {
   setup() {
@@ -103,10 +116,11 @@ export default {
     const setAccount = () => {
       account.value = !account.value;
     };
-
+    const codeStatus = ref(false);
+    const getCodeText = ref("获取验证码");
     // 登录
     const active = ref(0);
-    const input1 = ref("xiaotuxian001");
+    const input1 = ref("19170217409");
     const input2 = ref("");
     const setActive = (index) => {
       active.value = index;
@@ -118,23 +132,75 @@ export default {
         });
       }
     };
-
+    // 手机登录
+    const phoneLoginForm = ref({
+      mobile: "",
+      code: "",
+    });
+    // 定时器
+    let inv;
+    // 获取手机验证码
+    const getFormCode = () => {
+      if (!phoneLoginForm.value.mobile) {
+        return ElMessage({ message: "手机号为空" });
+      } else {
+        codeStatus.value = true;
+        let time = 59;
+        inv = setInterval(() => {
+          getCodeText.value = `${time}秒后发送`;
+          time--;
+          if (time === 0) {
+            getCodeText.value = "获取验证码";
+            clearInterval(inv);
+          }
+        }, 1000);
+        getCode({ mobile: phoneLoginForm.value.mobile });
+      }
+    };
+    onBeforeUnmount(() => {
+      clearInterval(inv);
+    });
     // 提交登录
     const store = useStore();
     const login = () => {
-      store.dispatch("login/sendInfoToIndex", {
-        account: input1.value,
-        password: input2.value,
-      });
+      if (account.value) {
+        if (!input1.value || !input2.value) {
+          ElMessage({
+            message: "账号或密码不能为空",
+            type: "warning",
+          });
+        } else {
+          store.dispatch("login/sendInfoToIndex", {
+            account: input1.value,
+            password: input2.value,
+          });
+        }
+      } else {
+        // 手机登录
+        if (!phoneLoginForm.value.mobile || !phoneLoginForm.value.code)
+          return ElMessage({
+            message: "手机号或验证码为空",
+            type: "warning",
+          });
+        if (!codeStatus.value)
+          return ElMessage({
+            message: "请获取验证码",
+            type: "warning",
+          });
+        store.dispatch("login/sendInfoToIndexByCode", phoneLoginForm.value);
+      }
     };
     return {
       active,
       account,
+      getCodeText,
       input1,
       input2,
       setActive,
       setAccount,
       login,
+      getFormCode,
+      phoneLoginForm,
     };
   },
 };
